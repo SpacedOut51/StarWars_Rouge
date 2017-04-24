@@ -1,0 +1,35 @@
+*************** MATT **************
+** I AGREE TO THE FOLLOWING WORK
+** BREAKDOWN AGREEMENT. (18-04-2017)
+**************************************
+
+TeamA - WBA
+18/04/17
+
+Assignment - Part 1
+
+Division of new features
+
+Matt
+ - Force
+ - Lightsabers
+
+Tristan
+ - Droids
+ - Ben Kenobi
+ - Healing*
+
+*can be shared with Matt if task is too large
+
+
+Collaboration of new elements to be implemented into UML. 
+
+Tristan
+ - Initial "what we already know" UML to be digitised and shared
+
+Matt
+ - Add new elements from both parties to existing UML
+
+
+
+Testing/Reviewing to be done as a team at next meeting, scheduled 24/04/17. 
