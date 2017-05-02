@@ -1,0 +1,24 @@
+*************** MATT **************
+** I AGREE TO THE FOLLOWING WORK
+** BREAKDOWN AGREEMENT. (02-05-2017)
+**************************************
+
+TeamA - WBA
+02/05/17
+
+Assignment - Part 2
+
+Division of new features
+
+Matt
+ - Force
+
+ - Game Balance Changes
+
+Tristan
+ - Droids
+ - Healing
+
+Collaboration of new elements to be implemented into UML and documentation of design changes to be created. 
+
+Testing/Reviewing to be done as a team at next meeting, scheduled 08/05/17. 
