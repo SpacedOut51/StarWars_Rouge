@@ -1,8 +1,5 @@
 package starwars.entities.actors;
 
-import java.util.ArrayList;
-
-import edu.monash.fit2099.gridworld.Grid;
 import edu.monash.fit2099.simulator.space.Direction;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.SWActor;
@@ -12,40 +9,57 @@ import starwars.Team;
 import starwars.actions.Move;
 import starwars.entities.actors.behaviors.AttackInformation;
 import starwars.entities.actors.behaviors.AttackNeighbours;
+import starwars.entities.actors.behaviors.Patrol;
 
-public class TuskenRaider extends SWActor {
+public class Droid extends SWActor {
 
+	private boolean isimmobile;
 	private String name;
+	private Patrol path;
+	private Droid owner;
 
 	/**
-	 * Create a Tusken Raider.  Tusken Raiders will randomly wander
-	 * around the playfield (on any given turn, there is a 50% probability
-	 * that they will move) and attack anything they can (if they can attack
-	 * something, they will).  They
-	 * are all members of team TUSKEN, so their attempts to attack
-	 * other Tusken Raiders won't be effectual.
+	 * Droid description ::
 	 *
+	 * @param team the <code>Team</code> to which the this <code>Player</code> belongs to
+
 	 * @param hitpoints
 	 *            the number of hit points of this Tusken Raider. If this
 	 *            decreases to below zero, the Raider will die.
 	 * @param name
-	 *            this raider's name. Used in displaying descriptions.
+	 *            this droids's name. Used in displaying descriptions.
 	 * @param m
 	 *            <code>MessageRenderer</code> to display messages.
 	 * @param world
 	 *            the <code>SWWorld</code> world to which this
 	 *            <code>TuskenRaider</code> belongs to
+	 * @param isimmobile
+	 *        	  boolean value to identify whether a droid is immobile
 	 *
 	 */
-	public TuskenRaider(int hitpoints, String name, MessageRenderer m, SWWorld world) {
-		super(Team.TUSKEN, 50, m, world);
-		// TODO Auto-generated constructor stub
-		this.name = name;
+	public Droid(Team team, int hitpoints, MessageRenderer m, SWWorld world, boolean isimmbole) {
+		super(team, hitpoints, m, world);
+		this.isimmobile = isimmobile;
+		this.name = "droid"; // set default name
+	}
+
+	public void setName(String n) {
+		this.name = n;
+	}
+
+	public void setPath(Direction[] moves){
+		path = new Patrol(moves);
+	}
+
+	public void setOwner(Droid owner){
+		owner = owner;
 	}
 
 	@Override
 	public void act() {
+
 		if (isDead()) {
+			this.isimmobile = true;
 			return;
 		}
 		say(describeLocation());
@@ -55,28 +69,17 @@ public class TuskenRaider extends SWActor {
 			say(getShortDescription() + " has attacked " + attack.entity.getShortDescription());
 			scheduler.schedule(attack.affordance, this, 1);
 		}
-		else if (Math.random() > 0.5){
-
-			ArrayList<Direction> possibledirections = new ArrayList<Direction>();
-
-			// build a list of available directions
-			for (Grid.CompassBearing d : Grid.CompassBearing.values()) {
-				if (SWWorld.getEntitymanager().seesExit(this, d)) {
-					possibledirections.add(d);
-				}
-			}
-
-			Direction heading = possibledirections.get((int) (Math.floor(Math.random() * possibledirections.size())));
-			say(getShortDescription() + " is heading " + heading + " next.");
-			Move myMove = new Move(heading, messageRenderer, world);
-
+		else {
+			Direction newdirection = path.getNext();
+			say(getShortDescription() + " moves " + newdirection);
+			Move myMove = new Move(newdirection, messageRenderer, world);
 			scheduler.schedule(myMove, this, 1);
 		}
 	}
 
 	@Override
 	public String getShortDescription() {
-		return name + " the Tusken Raider";
+		return name;
 	}
 
 	@Override
