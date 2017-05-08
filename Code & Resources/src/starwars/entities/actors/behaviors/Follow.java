@@ -6,18 +6,18 @@ import java.util.Collection;
 
 import edu.monash.fit2099.simulator.space.Direction;
 
-public class Patrol {
+public class Follow {
 
 	private ArrayList<Direction> moves;
 	private int position = 0;
 
-	public Patrol(Direction [] moves) {
+	public Follow(Direction [] moves) {
 		this.moves = new ArrayList<Direction>(Arrays.asList(moves));
 
 		// TODO Auto-generated constructor stub
 	}
 
-	public Patrol(Collection<Direction> moves) {
+	public Follow(Collection<Direction> moves) {
 		this.moves = new ArrayList<Direction>(moves);
 	}
 

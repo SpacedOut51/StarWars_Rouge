@@ -13,9 +13,6 @@ import starwars.actions.Attack;
 
 public class AttackNeighbours {
 
-
-
-	
 	public static AttackInformation attackLocals(SWActor actor, SWWorld world, boolean avoidFriendlies, boolean avoidNonActors) {
 		SWLocation location = world.getEntityManager().whereIs(actor);
 		EntityManager<SWEntityInterface, SWLocation> em = world.getEntityManager();
@@ -26,9 +23,9 @@ public class AttackNeighbours {
 		ArrayList<AttackInformation> attackables = new ArrayList<AttackInformation>();
 		for (SWEntityInterface e : entities) {
 			// Figure out if we should be attacking this entity
-			if( e != actor && 
-					(e instanceof SWActor && 
-							(avoidFriendlies==false || ((SWActor)e).getTeam() != actor.getTeam()) 
+			if( e != actor &&
+					(e instanceof SWActor &&
+							(avoidFriendlies==false || ((SWActor)e).getTeam() != actor.getTeam())
 					|| (avoidNonActors == false && !(e instanceof SWActor)))) {
 				for (Affordance a : e.getAffordances()) {
 					if (a instanceof Attack) {
