@@ -1,0 +1,9 @@
+package starwars.entities.actors;
+
+public class AuntBeru {
+
+	public AuntBeru() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

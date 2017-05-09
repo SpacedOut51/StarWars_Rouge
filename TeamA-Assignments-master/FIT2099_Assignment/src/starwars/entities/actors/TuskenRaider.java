@@ -10,6 +10,7 @@ import starwars.SWLocation;
 import starwars.SWWorld;
 import starwars.Team;
 import starwars.actions.Move;
+import starwars.entities.TuskenGaffiStick;
 import starwars.entities.actors.behaviors.AttackInformation;
 import starwars.entities.actors.behaviors.AttackNeighbours;
 
@@ -38,8 +39,9 @@ public class TuskenRaider extends SWActor {
 	 * 
 	 */
 	public TuskenRaider(int hitpoints, String name, MessageRenderer m, SWWorld world) {
-		super(Team.TUSKEN, 50, m, world);
-		// TODO Auto-generated constructor stub
+		super(Team.TUSKEN, 200, m, world);
+		TuskenGaffiStick gaffiStick = new TuskenGaffiStick(m);
+		setItemCarried(gaffiStick);
 		this.name = name;
 	}
 
@@ -89,4 +91,5 @@ public class TuskenRaider extends SWActor {
 		return this.getShortDescription() + " [" + this.getHitpoints() + "] is at " + location.getShortDescription();
 
 	}
+	
 }

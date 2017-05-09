@@ -53,6 +53,10 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	/**A set of <code>Capabilities</code> of this <code>SWActor</code>*/
 	private HashSet<Capability> capabilities;
 	
+	protected boolean legend;
+	
+	private int force;
+	
 	/**
 	 * Constructor for the <code>SWActor</code>.
 	 * <p>
@@ -81,6 +85,8 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		this.hitpoints = hitpoints;
 		this.world = world;
 		this.symbol = "@";
+		force = 0;
+		legend = false;
 		
 		//SWActors are given the Attack affordance hence they can be attacked
 		SWAffordance attack = new Attack(this, m);
@@ -130,7 +136,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	public ArrayList<SWActionInterface> getActions() {
 		ArrayList<SWActionInterface> actionList = super.getActions();
 		
-		//If the HobbitActor is carrying anything, look for its affordances and add them to the list
+		//If the Actor is carrying anything, look for its affordances and add them to the list
 		SWEntityInterface item = getItemCarried();
 		if (item != null)
 			for (Affordance aff : item.getAffordances())
@@ -193,6 +199,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	 */
 	public void setItemCarried(SWEntityInterface target) {
 		this.itemCarried = target;
+
 	}
 	
 	
@@ -221,6 +228,15 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		symbol = s;
 	}
 	
+	public int setForce(int value) {
+		force = value;
+		return force;
+	}
+	
+	public int getForce() {
+		return force;
+	}
+	
 	/**
 	 * Returns if or not this <code>SWActor</code> is human controlled.
 	 * <p>
@@ -233,6 +249,10 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		return humanControlled;
 	}
 	
+	// returns bool for if actor is legendary, from SWActor -> SWLegend
+	public boolean isLegend() {
+		return legend;
+	}
 
 	@Override
 	public boolean hasCapability(Capability c) {

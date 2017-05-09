@@ -23,7 +23,7 @@ public class SWEntity extends Entity implements SWEntityInterface {
 	
 	/**The amount of <code>hitpoints</code> of this <code>SWEntity</code>.*/
 	protected int hitpoints = 0; // Not all non-actor entities will make use of this
-
+	
 	/**
 	 * Constructor for this <code>SWEntity</code>. Will initialize this <code>SWEntity</code>'s
 	 * <code>messageRenderer</code> and set of capabilities.
@@ -84,5 +84,5 @@ public class SWEntity extends Entity implements SWEntityInterface {
 		assert (damage >= 0)	:"damage on SWEntity must not be negative";
 		this.hitpoints -= damage;
 	}
-	
+
 }

@@ -76,6 +76,7 @@ public class Take extends SWAffordance {
 			
 			// add a leave affordance
 			target.addAffordance(new Leave(theItem, messageRenderer));
+			
 		}
 	}
 

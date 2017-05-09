@@ -1,0 +1,24 @@
+package starwars.entities.actors;
+
+import java.util.List;
+
+import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
+import starwars.SWActor;
+import starwars.SWEntityInterface;
+import starwars.SWLocation;
+import starwars.SWWorld;
+import starwars.Team;
+
+public class UncleOwen extends SWActor {
+
+	public UncleOwen(MessageRenderer m, SWWorld world) {
+		super(Team.GOOD, 25, m, world); 
+		this.setShortDescription("Uncle Owen");
+		this.setLongDescription("Might not be alive for much longer, but looks satisfied.");
+	}
+	
+	public void act() {
+		say(this.getShortDescription() + " is standing still at " + this.world.getEntityManager().whereIs(this).getShortDescription());
+		describeScene();
+	}
+}

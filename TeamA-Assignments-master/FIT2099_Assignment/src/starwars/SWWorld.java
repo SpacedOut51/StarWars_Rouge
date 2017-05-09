@@ -113,12 +113,12 @@ public class SWWorld extends World {
 		
 		loc = myGrid.getLocationByCoordinates(5,9);
 		
-		// Luke
+		// Luke, who can't yet use a saber but has strong willpower
 		Player luke = new Player(Team.GOOD, 100, iface, this);
 		luke.setShortDescription("Luke");
 		entityManager.setLocation(luke, loc);
 		luke.resetMoveCommands(loc);
-		
+		luke.setForce(8);
 		
 		// Beggar's Canyon 
 		for (int col = 3; col < 8; col++) {
@@ -175,14 +175,43 @@ public class SWWorld extends World {
 		loc = myGrid.getLocationByCoordinates(3, 4);
 		entityManager.setLocation(blaster, loc);
 		
-		// A Tusken Raider
-		TuskenRaider tim = new TuskenRaider(10, "Tim", iface, this);
-		
+		// Four Tusken Raiders
+		// Tusken Tim
+		TuskenRaider tim = new TuskenRaider(200, "Tim", iface, this);
 		tim.setSymbol("T");
-		loc = myGrid.getLocationByCoordinates(4,3);
+		loc = myGrid.getLocationByCoordinates(1,3);
 		entityManager.setLocation(tim, loc);
 
-	}
+		// Tusken Tom
+		TuskenRaider tom = new TuskenRaider(200, "Tom", iface, this);
+		tom.setSymbol("T");
+		loc = myGrid.getLocationByCoordinates(4,3);
+		entityManager.setLocation(tom, loc);
+
+		// Tusken Tony
+		TuskenRaider tony = new TuskenRaider(200, "Tony", iface, this);
+		tony.setSymbol("T");
+		loc = myGrid.getLocationByCoordinates(2,1);
+		entityManager.setLocation(tony, loc);
+
+		// Tusken Tina
+		TuskenRaider tina = new TuskenRaider(200, "Tina", iface, this);
+		tina.setSymbol("T");
+		loc = myGrid.getLocationByCoordinates(6,3);
+		entityManager.setLocation(tina, loc);
+
+		//Aunt Beru and Uncle Owen
+		AuntBeru beru = new AuntBeru(iface, this); 
+		beru.setSymbol("A");
+		loc = myGrid.getLocationByCoordinates(9, 4);
+		entityManager.setLocation(beru, loc);
+		
+		UncleOwen owen = new UncleOwen(iface, this);
+		owen.setSymbol("U");
+		loc = myGrid.getLocationByCoordinates(8, 2);
+		entityManager.setLocation(owen, loc);
+		
+		}
 
 	/*
 	 * Render method was removed from here

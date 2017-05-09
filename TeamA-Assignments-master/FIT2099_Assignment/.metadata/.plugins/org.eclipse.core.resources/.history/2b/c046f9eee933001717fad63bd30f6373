@@ -1,0 +1,9 @@
+package starwars.entities.actors;
+
+public class UncleOwen {
+
+	public UncleOwen() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
