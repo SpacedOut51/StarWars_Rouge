@@ -287,6 +287,15 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		return force;
 	}
 	
+	public int setForce(int value) {
+		force = value;
+		return force;
+	}
+	
+	public int getForce() {
+		return force;
+	}
+	
 	/**
 	 * Returns if or not this <code>SWActor</code> is human controlled.
 	 * <p>
@@ -301,8 +310,8 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	
 	/*
 	 *  returns boolean for if actor is legendary, from SWActor -> SWLegend
-	 *  @author Matt
 	 */
+	 *  @author Matt
 	public boolean isLegend() {
 		return legend;
 	}

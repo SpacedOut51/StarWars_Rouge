@@ -66,7 +66,7 @@ public class Player extends SWLegend {
 	 */
 	//@Override
 	public void act() {	
-		describeScene();
+		//describeScene();
 		scheduler.schedule(SWGridController.getUserDecision(this), this, 1);
 
 		}
