@@ -6,9 +6,12 @@ import starwars.SWLegend;
 import starwars.SWWorld;
 import starwars.Team;
 import starwars.actions.Move;
+import starwars.actions.Train;
 import starwars.entities.LightSaber;
 import starwars.entities.actors.behaviors.AttackInformation;
 import starwars.entities.actors.behaviors.AttackNeighbours;
+import starwars.entities.actors.behaviors.FriendlyInformation;
+import starwars.entities.actors.behaviors.FriendlyNeighbours;
 import starwars.entities.actors.behaviors.Patrol;
 
 /**
@@ -22,6 +25,8 @@ import starwars.entities.actors.behaviors.Patrol;
  * @author rober_000
  *
  */
+
+
 public class BenKenobi extends SWLegend {
 
 	private static BenKenobi ben = null; // yes, it is OK to return the static instance!
@@ -35,11 +40,21 @@ public class BenKenobi extends SWLegend {
 		setItemCarried(bensweapon);
 	}
 
+
 	public static BenKenobi getBenKenobi(MessageRenderer m, SWWorld world, Direction [] moves) {
 		ben = new BenKenobi(m, world, moves);
 		ben.activate();
 		return ben;
 	}
+
+	
+	/*
+	 * Uses <code>AtttackNeighbours<code> and <code>FriendlyNeighbours<code> to determine wether to attack or offer trainig
+	 * 
+	 * if neither an enemy or a frienly are found, continues on his patrol Path
+	 * 
+	 * @see starwars.SWLegend#legendAct()
+	 */
 	
 	@Override
 	protected void legendAct() {
@@ -55,6 +70,16 @@ public class BenKenobi extends SWLegend {
 		attack.entity.getShortDescription());
 			scheduler.schedule(attack.affordance, ben, 1);
 		}
+
+		FriendlyInformation help;
+		help = FriendlyNeighbours.helpLocals(ben, ben.world);
+		
+		if (help != null) {
+			this.say("Use the Force, Luke.");
+			scheduler.schedule(Train.affordance, ben, 1);
+
+		}
+		
 		else {
 			Direction newdirection = path.getNext();
 			say(getShortDescription() + " moves " + newdirection);

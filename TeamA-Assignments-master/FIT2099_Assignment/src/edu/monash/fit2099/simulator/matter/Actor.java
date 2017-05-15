@@ -36,7 +36,7 @@ public abstract class Actor<T extends ActionInterface> extends Entity {
 	protected static Scheduler s;
 	
 	/**The command set of this <code>Actor</code>, i.e. a set of <code>Actions</code> of this <code>Actor</code>*/
-	protected Set<T> actions;
+	public Set<T> actions;
 	
 	/**The amount of time this <code>Actor</code> has to wait before it could <code>act</code>*/
 	private int waittime;

@@ -4,11 +4,20 @@ package starwars.entities.actors;
 import java.util.List;
 
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
-import starwars.SWActor;
+import edu.monash.fit2099.simulator.matter.EntityManager;
+import edu.monash.fit2099.simulator.matter.Actor;
+//import starwars.SWActor;
+import starwars.SWLegend;
 import starwars.SWEntityInterface;
 import starwars.SWLocation;
 import starwars.SWWorld;
+import starwars.SWAction;
 import starwars.Team;
+import starwars.actions.Move;
+import starwars.entities.actors.behaviors.AttackInformation;
+import starwars.entities.actors.behaviors.AttackNeighbours;
+import starwars.entities.actors.behaviors.FriendlyInformation;
+import starwars.entities.actors.behaviors.FriendlyNeighbours;
 import starwars.swinterfaces.SWGridController;
 
 /**
@@ -22,7 +31,7 @@ import starwars.swinterfaces.SWGridController;
  * 2017/02/22	Schedule actions in the act method instead of tick. 
  * 				A controller used to get user input rather than the UI directly (Asel)
  */
-public class Player extends SWActor {
+public class Player extends SWLegend {
 
 	/**
 	 * Constructor for the <code>Player</code> class. This constructor will,
@@ -43,6 +52,7 @@ public class Player extends SWActor {
 	public Player(Team team, int hitpoints, MessageRenderer m, SWWorld world) {
 		super(team, hitpoints, m, world);
 		humanControlled = true; // this feels like a hack. Surely this should be dynamic
+		legend = true;
 	}
 	
 	/**
@@ -54,12 +64,13 @@ public class Player extends SWActor {
 	 * @see {@link #describeScene()}
 	 * @see {@link starwars.swinterfaces.SWGridController}
 	 */
-	@Override
+	//@Override
 	public void act() {	
 		describeScene();
 		scheduler.schedule(SWGridController.getUserDecision(this), this, 1);
+
+		}
 		
-	}
 	/**
 	 * This method will describe, 
 	 * <ul>
@@ -75,7 +86,7 @@ public class Player extends SWActor {
 	public void describeScene() {
 		//get the location of the player and describe it
 		SWLocation location = this.world.getEntityManager().whereIs(this);
-		say(this.getShortDescription() + " [" + this.getHitpoints() + "] is at " + location.getShortDescription());
+		say(this.getShortDescription() + " HP[" + this.getHitpoints() + "], F[" + this.getForce() + "] is at " + location.getShortDescription());
 		
 		//get the items carried for the player
 		SWEntityInterface itemCarried = this.getItemCarried();
@@ -97,5 +108,13 @@ public class Player extends SWActor {
 				}
 			}
 		}
+		
+
+	}
+
+	@Override
+	protected void legendAct() {
+		// TODO Auto-generated method stub
+		
 	}
 }

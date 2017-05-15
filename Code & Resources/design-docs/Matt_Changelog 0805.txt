@@ -1,0 +1,49 @@
+changes
+
+--- GAMEPLAY BALANCES ---
+
+Tusken HP increased to 200
+	- class Tusken;
+		super (..., 200, ...)
+
+Tusken Attack doubled by giving new weapon, Gaffi Stick
+	Created TuskenGaffiStick class, extends entity
+	has weapon capability
+	does 20 damage, double what the Tuskens would do barehanded
+	All tuskens now hold a gaffiStick object
+	given symbol 'G'
+
+Added Tuskens to Map
+	Three additional tuskens have been hardcoded in at different locations
+	Added with names in SWWorld, Tim, Tom, Tina and Tony
+	otherwise identical
+	# are the attacks they do to each other working? they shouldnt do anything #
+
+Lightsaber damage reduced
+	Damage reduced from 1000000 to 100
+
+Aunt Beru and Uncle Owen
+	SWLegends with no possible force
+	## is this a flaw in our design? ## 
+
+--- ASSIGNMENT 1 DESIGNS ---
+
+Lightsaber user needs force
+	modified from Lightsaber entity getForceLvL original plan, as listsaber entity has no vision of who is holding it
+	changed attack action to check for force levels and legend status
+
+	uses getSymbol() method from SWEntityInterface to detect lightsaber being held
+	## still needs to be able to see getForce() method - unsure of implementation ##
+	## can forcelvlv be given to actor? there are legends with no possibility of force,
+	   and given the limited methods of force levels changing, there isn't a high chance of mistake ## 
+
+SWLegend needs force value
+	added int variable, setForce(), and getForce() methods
+	## currently not used ##
+
+
+
+=== NOTES ===
+
+class Player breaks game when it's legendAct() replaces act(). 
+getUserDirection takes actor, not legend. how to allow it to accept both?

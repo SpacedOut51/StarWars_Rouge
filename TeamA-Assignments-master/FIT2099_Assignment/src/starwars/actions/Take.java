@@ -76,6 +76,8 @@ public class Take extends SWAffordance {
 			
 			// add a leave affordance
 			target.addAffordance(new Leave(theItem, messageRenderer));
+			
+		
 		}
 	}
 
@@ -88,6 +90,13 @@ public class Take extends SWAffordance {
 	@Override
 	public String getDescription() {
 		return "take " + target.getShortDescription();
+	}
+
+
+	@Override
+	public boolean isForceCommand() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

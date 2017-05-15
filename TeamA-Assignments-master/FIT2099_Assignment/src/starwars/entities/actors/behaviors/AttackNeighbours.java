@@ -13,8 +13,6 @@ import starwars.actions.Attack;
 
 public class AttackNeighbours {
 
-
-
 	
 	public static AttackInformation attackLocals(SWActor actor, SWWorld world, boolean avoidFriendlies, boolean avoidNonActors) {
 		SWLocation location = world.getEntityManager().whereIs(actor);

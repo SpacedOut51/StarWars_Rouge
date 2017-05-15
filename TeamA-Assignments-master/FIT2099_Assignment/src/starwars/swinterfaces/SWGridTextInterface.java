@@ -114,7 +114,9 @@ public class SWGridTextInterface implements GridRenderer {
 				"\\___ \\| __/ _` | '__|  \\ \\ /\\ / / _` | '__/ __|",
 				" ___) | || (_| | |      \\ V  V / (_| | |  \\__ \\",
 				"|____/ \\__\\__,_|_|       \\_/\\_/ \\__,_|_|  |___/",
-			"",
+		};
+		/*
+		 * 		"",
 			"A long time ago in a galaxy far, far away",
 			"",
 			"The laws of physics were compressed onto a",
@@ -123,8 +125,8 @@ public class SWGridTextInterface implements GridRenderer {
 			"",
 			"discrete instants.  And some other stuff happened",
 			"",
-			"but waiting for it to scroll down is boring."};
-		
+			"but waiting for it to scroll down is boring."
+		 */
 		for(String line: lines) {
 			System.out.println(line);
 			try {
@@ -177,7 +179,7 @@ public class SWGridTextInterface implements GridRenderer {
 		
 		//assertion for the precondition
 		assert cmds.size()>0:"command list for the actor is empty";
-							
+		
 		Collections.sort(cmds);//sorting the actions for a prettier output
 
 		//construct the commands to be displayed in the console

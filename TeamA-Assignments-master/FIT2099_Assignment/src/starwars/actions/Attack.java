@@ -78,6 +78,9 @@ public class Attack extends SWAffordance implements SWActionInterface {
 	 * <ul>
 	 * 	<li>The target of the <code>Attack</code> and the <code>SWActor a</code> are in the same <code>Team</code></li>
 	 * 	<li>The <code>SWActor a</code> is holding an item without the <code>WEAPON Affordance</code></li>
+	 * 
+	 * If actor is holding a lightsaber, their force and legend statuses are checked before use is allowed
+	 * 
 	 * </ul>
 	 * <p>
 	 * else it would damage the entity attacked, tires the attacker, and blunts any weapon used for the attack.
@@ -116,11 +119,38 @@ public class Attack extends SWAffordance implements SWActionInterface {
 			SWEntityInterface itemCarried = a.getItemCarried();
 			if (itemCarried != null) {//if the actor is carrying an item 
 				if (itemCarried.hasCapability(Capability.WEAPON)) {
-					target.takeDamage(itemCarried.getHitpoints() + 1); // blunt weapon won't do much, but it will still do some damage
-					itemCarried.takeDamage(1); // weapon gets blunt
-					a.takeDamage(energyForAttackWithWeapon); // actor uses energy to attack
+					// check for force and legend values
+					if (itemCarried.getSymbol() == "|") {
+						if (!a.isLegend()) {
+							// non legends will never know how to use the force
+							targetActor.say(a.getShortDescription()
+							+ " will never know how to to wield  "
+							+ itemCarried.getShortDescription());	
+						}
+						// some legends havent been trained enough to use Lightsabers
+						else if (a.isLegend() && a.getForce() < 5) {
+							targetActor.say(a.getShortDescription()
+							+ " doesn't yet have enough force to use "
+							+ itemCarried.getShortDescription());
+						}
+						// legends with enough force can use the lightsaber as intended
+						else {
+							target.takeDamage(itemCarried.getHitpoints() + 1); // blunt weapon won't do much, but it will still do some damage
+							itemCarried.takeDamage(1); // weapon gets blunt
+							a.takeDamage(energyForAttackWithWeapon); // actor uses energy to attack
+
+						}
+							
+					}
+					// if not a lightsaber, attack as normal
+					else {
+						target.takeDamage(itemCarried.getHitpoints() + 1); // blunt weapon won't do much, but it will still do some damage
+						itemCarried.takeDamage(1); // weapon gets blunt
+						a.takeDamage(energyForAttackWithWeapon); // actor uses energy to attack
+
+					}
 				}
-				else {//an attack with a none weapon
+				else {//an attack with a non-weapon
 					if (targetIsActor) {
 						targetActor.say("\t" + targetActor.getShortDescription()
 								+ " is amused by " + a.getShortDescription()
@@ -157,5 +187,12 @@ public class Attack extends SWAffordance implements SWActionInterface {
 			}
 		} // not game player and different teams
 		
+	}
+
+
+	@Override
+	public boolean isForceCommand() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

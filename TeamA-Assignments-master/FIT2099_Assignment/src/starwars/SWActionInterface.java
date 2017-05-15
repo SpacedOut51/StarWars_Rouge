@@ -10,6 +10,9 @@ import edu.monash.fit2099.simulator.matter.ActionInterface;
  */
 public interface SWActionInterface extends ActionInterface {
 	
+	/**Returns if or not the action is a ForceMove command. Returns true if so, false otherwise*/
+	public boolean isForceCommand();
+	
 	/**Returns if or not the action is a move command. Returns true if so, false otherwise*/
 	public boolean isMoveCommand();
 	

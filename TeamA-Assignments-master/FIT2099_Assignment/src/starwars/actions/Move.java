@@ -58,8 +58,6 @@ public class Move extends SWAction {
 		}
 				
 	}
-
-
 	
 	/**
 	 * This is a wrapper for getDescription().
@@ -72,6 +70,9 @@ public class Move extends SWAction {
 		return getDescription();
 	}
 
+	public boolean isForceCommand() {
+		return false;
+	}
 	
 	/**
 	 * Returns a String describing this <code>Move</code>, suitable for display to the user.
@@ -92,6 +93,7 @@ public class Move extends SWAction {
 	 * @author ram
 	 * @return true
 	 */
+	
 	public boolean isMoveCommand() {
 		return true;
 	}
@@ -136,9 +138,5 @@ public class Move extends SWAction {
 	public Direction getWhichDirection() {
 		return whichDirection;
 	}
-
-	
-	
-
 
 }

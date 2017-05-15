@@ -26,8 +26,8 @@ import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 public abstract class SWLegend extends SWActor {
 
 	private boolean isActivated;
-
 	
+
 	/** 
 	 * Protected constructor to prevent random other code from creating 
 	 * SWLegends or their descendents.
@@ -40,6 +40,8 @@ public abstract class SWLegend extends SWActor {
 	protected SWLegend(Team team, int hitpoints, MessageRenderer m, SWWorld world) {
 		super(team, hitpoints, m, world);
 		isActivated = false;
+		legend = true;
+
 	}
 
 	
@@ -50,6 +52,7 @@ public abstract class SWLegend extends SWActor {
 	protected void activate() {
 		isActivated = true;
 	}
+
 	
 	@Override
 	public void act() {

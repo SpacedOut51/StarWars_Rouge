@@ -26,6 +26,7 @@ import edu.monash.fit2099.simulator.time.Scheduler;
 import edu.monash.fit2099.simulator.userInterface.MessageRenderer;
 import starwars.actions.Attack;
 import starwars.actions.Move;
+import starwars.actions.ForceMove;
 
 public abstract class SWActor extends Actor<SWActionInterface> implements SWEntityInterface {
 	
@@ -52,6 +53,10 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	
 	/**A set of <code>Capabilities</code> of this <code>SWActor</code>*/
 	private HashSet<Capability> capabilities;
+	
+	protected boolean legend;
+	
+	private int force;
 	
 	/**
 	 * Constructor for the <code>SWActor</code>.
@@ -81,11 +86,52 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		this.hitpoints = hitpoints;
 		this.world = world;
 		this.symbol = "@";
+		this.messageRenderer = m;
+		force = 0;
+		legend = false;
 		
 		//SWActors are given the Attack affordance hence they can be attacked
 		SWAffordance attack = new Attack(this, m);
 		this.addAffordance(attack);
+		
 	}
+		
+	/**
+	 * Gives <code>SWActor<code> the ability to move or be moved with the power of the force
+	 * 
+	 * Sets a new affordance for each possible move this <code>SWctor<code> can make. 
+	 * this allows the user to be given a choice for each movement option 
+	 * 
+	 * @return null
+	 * 
+	 */
+	public void setForceableLocations() {
+
+		if (this.getForce() < 3) {
+			for (Affordance a : this.getAffordances()) {
+				if (a instanceof ForceMove) {
+					this.removeAffordance(a);		
+					}
+				}
+			
+			for (CompassBearing dr: CompassBearing.values()) { 														  
+				if (world.getEntityManager().whereIs(this).getNeighbour(dr) != null) //if there is an exit from the current location in direction d, add that as a Move command
+					if (world.canMove(this, dr)) {
+						SWAffordance fmove = new ForceMove(this, dr, messageRenderer, world);	
+						this.addAffordance(fmove);
+					}
+				}
+			}
+		
+		else {
+			for (Affordance a : this.getAffordances()) {
+				if (a instanceof ForceMove) {
+					this.removeAffordance(a);		
+					}
+				}
+		}
+	}
+
 	
 	/**
 	 * Sets the <code>scheduler</code> of this <code>SWActor</code> to a new <code>Scheduler s</code>
@@ -130,7 +176,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	public ArrayList<SWActionInterface> getActions() {
 		ArrayList<SWActionInterface> actionList = super.getActions();
 		
-		//If the HobbitActor is carrying anything, look for its affordances and add them to the list
+		//If the Actor is carrying anything, look for its affordances and add them to the list
 		SWEntityInterface item = getItemCarried();
 		if (item != null)
 			for (Affordance aff : item.getAffordances())
@@ -193,6 +239,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	 */
 	public void setItemCarried(SWEntityInterface target) {
 		this.itemCarried = target;
+
 	}
 	
 	
@@ -220,6 +267,25 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	public void setSymbol(String s) {
 		symbol = s;
 	}
+	/*
+	 * allows force values for an actor to be set. Incrementing uses setForce(SWActor.getForce()+1);
+	 * 
+	 * @param integer of new force value
+	 * @author Matt
+	 */
+	public int setForce(int value) {
+		force = value;
+		return force;
+	}
+	/*
+	 * returns the current force value of the SWActor
+	 * 
+	 * @author Matt
+	 * 
+	 */
+	public int getForce() {
+		return force;
+	}
 	
 	/**
 	 * Returns if or not this <code>SWActor</code> is human controlled.
@@ -233,6 +299,13 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		return humanControlled;
 	}
 	
+	/*
+	 *  returns boolean for if actor is legendary, from SWActor -> SWLegend
+	 *  @author Matt
+	 */
+	public boolean isLegend() {
+		return legend;
+	}
 
 	@Override
 	public boolean hasCapability(Capability c) {
@@ -248,7 +321,7 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 	 *  
 	 * @author 	ram
 	 * @param 	loc this <code>SWActor</code>'s location
-	 * @pre		<code>loc</code> is the actual location of this <code>SWActor</code>
+	 * @pre		<code>loc</code> is the af this <code>SWActor</code>
 	 */
 	public void resetMoveCommands(Location loc) {
 		HashSet<SWActionInterface> newActions = new HashSet<SWActionInterface>();
@@ -272,8 +345,4 @@ public abstract class SWActor extends Actor<SWActionInterface> implements SWEnti
 		/* Actually, that's not the case: all non-movement actions are transferred to newActions before the movements are transferred. --ram */
 	}
 
-
-	
-	
-	
 }

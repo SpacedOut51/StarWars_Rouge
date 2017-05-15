@@ -12,7 +12,8 @@ import starwars.actions.Take;
  * 
  * This class does not implement all of the abilities shown in the films; there is
  * no capacity for using it to play cover drives with Blaster bolts, or parry 
- * other lightsabers; there are also no restrictions on who wields it.
+ * other lightsabers. 
+ * restrictions on who can weild the lightsaber appear in <code>Attack<code>, based on force levels
  * 
  *  @author Robert
  *  @see {@link starwars.actions.Attack}
@@ -40,13 +41,11 @@ public class LightSaber extends SWEntity {
 		
 		this.shortDescription = "A Lightsaber";
 		this.longDescription = "A lightsaber.  Bzzz-whoosh!";
-		this.hitpoints = 100000; // start with a nice powerful, sharp axe
+		this.hitpoints = 100; // start with a nice powerful, sharp axe
 		
 		this.addAffordance(new Take(this, m));//add the take affordance so that the LightSaber can be taken by SWActors
 		this.capabilities.add(Capability.WEAPON);// it's a weapon.  
 	}
-	
-	
 	
 	/**
 	 * Lightsabers are indestructible, so doing damage to them has no effect
@@ -68,7 +67,5 @@ public class LightSaber extends SWEntity {
 	public String getSymbol() {
 		return "|";
 	}
-	
-	
 
 }

@@ -71,7 +71,7 @@ public class TestActor extends SWActor {
 		
 		//get the contents of the location
 		List<SWEntityInterface> contents = this.world.getEntityManager().contents(location);
-		
+		say(contents);
 		//and describe the contents
 		if (contents.size() > 1) { // if it is equal to one, the only thing here is this Player, so there is nothing to report
 			say(this.getShortDescription() + " can see:");
